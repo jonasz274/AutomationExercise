@@ -20,7 +20,7 @@ test.describe("Automation Exercise", () => {
         const pageTitle = await page.title();
 
         // Act:
-        console.log("Page Title: ", pageTitle)
+        console.log("Page Titlee: ", pageTitle)
         // Assert:
         await expect(page).toHaveTitle(pageTitle);
 
