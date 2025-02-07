@@ -19,6 +19,10 @@ test.describe("Automation Exercise", () => {
         // Arrange:
         const pageTitle = await page.title();
 
+        const loginName = "Name"
+        const emailAddress = "email@gmail"
+        
+
         // Act:
         console.log("Page Titlee: ", pageTitle)
         // Assert:
@@ -31,8 +35,8 @@ test.describe("Automation Exercise", () => {
         await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible;
 
         // Act:
-        await page.getByPlaceholder('Name').fill('Name');
-        await page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address').fill('email@gmail');
+        await page.getByPlaceholder('Name').fill(loginName);
+        await page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address').fill(emailAddress);
         await page.getByRole('button', { name: 'Signup' }).click();
 
         // Assert:
@@ -65,11 +69,19 @@ test.describe("Automation Exercise", () => {
 
         await page.getByLabel('Mobile Number *').fill('123456797');
         await page.getByRole('button', { name: 'Create Account' }).click();
-        await page.getByText('Account Created!').click();
+
+        // Assert:
+        await expect(page.getByText('Account Created!')).toBeVisible()
+
         await page.getByRole('link', { name: 'Continue' }).click();
-        await page.getByText('Logged in as Name').click();
+        // Assert:
+        await expect(page.getByText('Logged in as Name')).toBeVisible();
+        //await expect(page.getByText('Logged in as ${}')).toBeVisible();
+
         await page.getByRole('link', { name: ' Delete Account' }).click();
-        await page.getByText('Account Deleted!').click();
+        // Assert:
+        await expect(page.getByText('Account Deleted!')).toBeVisible();
+
         await page.getByRole('link', { name: 'Continue' }).click();
 
     });
