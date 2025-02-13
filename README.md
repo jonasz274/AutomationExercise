@@ -14,7 +14,7 @@ Uczę się pisać testy automatyczne i sukcesywnie będę prezentować swoje pos
 ## Jak uruchomić testy
 1. Sklonuj repozytorium:
    ```sh
-   git clone <URL_Twojego_Repozytorium>
+   git clone <https://github.com/jonasz274/AutomationExercise.git>
    ```
 2. Zainstaluj zależności:
    ```sh
@@ -30,7 +30,7 @@ Uczę się pisać testy automatyczne i sukcesywnie będę prezentować swoje pos
 - Integracja z CI/CD
 - Raportowanie wyników testów
 
-Testy są tworzone na podstawie test casów zawartych na stronie [Automation Exercise](https://automationexercise.com/).
+Testy są tworzone na podstawie test casów zawartych na stronie [Automation Exercise](https://automationexercise.com/test_cases).
 
 Zapraszam do śledzenia moich postępów! 🚀
 
