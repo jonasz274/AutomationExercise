@@ -15,7 +15,16 @@ export class HomePage {
 
   }
 
+  signupLogin = this.page.getByRole('link', { name: 'Signup / Login' });
 
+  
+}
+
+
+export class LoginPage {
+  constructor(private page: Page) {}
+
+  signupLogin = this.page.getByRole('link', { name: 'Signup / Login' });
 
   
 }
