@@ -1,30 +1,33 @@
-import { Page } from '@playwright/test';
+import { expect, Locator, Page } from "@playwright/test";
 
 export class HomePage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly signupLink: Locator;
+  readonly loggedUsername: Locator;
+  readonly deleteAccountLink: Locator;
+
+  constructor(page: Page) {
+      this.page = page;
+      this.signupLink = page.getByRole('link', { name: 'Signup / Login' });
+      this.loggedUsername = page.locator('b')
+      this.deleteAccountLink = page.getByRole('link', { name: 'Delete Account' });
+
+  }
 
   async goTo() {
-    await this.page.goto('https://automationexercise.com/');
-    //await this.page.getByLabel('Consent').click();
-    await this.page.locator('button:has-text("Consent")').click();
-
+      await this.page.goto("https://automationexercise.com");
   }
 
-  async getTitle() {
-    return this.page.title();
-
+  async navigateToSignup() {
+      await this.signupLink.click();
   }
+  async verifyLoggedUsername(username: string) {
+    await expect(this.loggedUsername).toContainText(username)
+}
+async deleteAccount() {
+    await this.deleteAccountLink.click();
 
-  signupLogin = this.page.getByRole('link', { name: 'Signup / Login' });
-
-  
 }
 
-
-export class LoginPage {
-  constructor(private page: Page) {}
-
-  signupLogin = this.page.getByRole('link', { name: 'Signup / Login' });
-
-  
 }
+
