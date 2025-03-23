@@ -5,13 +5,16 @@ import { LoginPage } from "./pages/LoginPage";
 import { AccountPage } from "./pages/AccountPage";
 import { faker } from "@faker-js/faker";
 import { ContactUsPage } from "./pages/ContactUsPage";
+import { TestCasesPage } from "./pages/TestCasesPage";
+import { ProductsPage } from "./pages/ProductsPage";
 
 test.describe("Automation Exercise", () => {
   test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
+
     await homePage.goTo();
-    await page.locator(".fc-button.fc-cta-consent.fc-primary-button").click();
-    await expect(page).toHaveTitle(await page.title());
+    await homePage.cookieAccept();
+    await expect(page).toHaveTitle(/Automation Exercise/);
   });
 
   test("Test Case 1: Register User", async ({ page }) => {
@@ -105,6 +108,33 @@ test.describe("Automation Exercise", () => {
     await contactUs.fillEmail();
     await contactUs.fillSubject();
     await contactUs.fillMessage();
+
+    await contactUs.dialogAccept();
+
     await contactUs.cubmitClick();
+    await contactUs.verifyAlertSuccess();
+    await contactUs.homeClick();
+
+    await expect(page).toHaveURL("https://automationexercise.com/");
   });
+
+  test("Test Case 7: Verify Test Cases Page", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const testCasesPage = new TestCasesPage(page);
+
+    await homePage.testCasesClick()
+    await testCasesPage.veryfiTestCasesTitle();
+  });
+
+  test("Test Case 8: Verify All Products and product detail page", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const productsPage = new ProductsPage(page);
+
+    await homePage.productsButtonClick()
+    await productsPage.veryfiAllProductsTitle()
+
+    // In Progres
+
+  });
+
 });

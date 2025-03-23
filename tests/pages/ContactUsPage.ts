@@ -9,6 +9,9 @@ export class ContactUsPage {
   readonly subject: Locator;
   readonly message: Locator;
   readonly submit: Locator;
+  readonly homeBtn: Locator;
+  readonly alertSuccess: Locator;
+
 
   constructor(page: Page) {
     this.page = page;
@@ -18,10 +21,15 @@ export class ContactUsPage {
     this.subject = page.getByPlaceholder("Subject");
     this.message = page.getByPlaceholder("Your Message Here");
     this.submit = page.getByRole("button", { name: "Submit" });
+    this.homeBtn = page.locator('.btn.btn-success')
+    this.alertSuccess = page.locator('#contact-page')
   }
 
   async verifyGetInTouch() {
     await expect(this.getInTouch).toBeVisible();
+  }
+  async verifyAlertSuccess() {
+    await expect(this.alertSuccess.getByText('Success! Your details have')).toBeVisible();
   }
   async fillName() {
     await this.name.fill(faker.person.fullName());
@@ -35,7 +43,16 @@ export class ContactUsPage {
   async fillMessage() {
     await this.message.fill(faker.lorem.paragraphs());
   }
+  async dialogAccept() {
+    this.page.on('dialog', async (dialog) => {
+      console.log(`Dialog message: ${dialog.message()}`);
+      await dialog.accept();
+    });
+  }
   async cubmitClick() {
     await this.submit.click();
+  }
+  async homeClick() {
+    await this.homeBtn.click();
   }
 }

@@ -7,6 +7,11 @@ export class HomePage {
   readonly deleteAccountLink: Locator;
   readonly logoutLink: Locator;
   readonly contactUs: Locator;
+  readonly testCases: Locator;
+  readonly productsButton: Locator;
+
+  readonly cookieButton: Locator;
+  readonly urlHome: string;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,12 +20,20 @@ export class HomePage {
     this.deleteAccountLink = page.getByRole("link", { name: "Delete Account" });
     this.logoutLink = page.getByRole("link", { name: "Logout" });
     this.contactUs = page.getByRole("link", { name: "Contact us" });
+    this.testCases = page.locator('li').filter({ hasText: 'Test Cases' });
+    this.productsButton = page.getByRole('link', { name: 'Products' })
+
+
+    this.cookieButton = page.locator(".fc-button.fc-cta-consent.fc-primary-button");
+    this.urlHome = "https://automationexercise.com";
   }
 
   async goTo() {
-    await this.page.goto("https://automationexercise.com");
+    await this.page.goto(this.urlHome);
   }
-
+  async cookieAccept() {
+    await this.cookieButton.click();
+  }
   async navigateToSignup() {
     await this.signupLink.click();
   }
@@ -35,5 +48,11 @@ export class HomePage {
   }
   async contact() {
     await this.contactUs.click();
+  }
+  async testCasesClick() {
+    await this.testCases.click();
+  }
+  async productsButtonClick() {
+    await this.productsButton.click();
   }
 }
