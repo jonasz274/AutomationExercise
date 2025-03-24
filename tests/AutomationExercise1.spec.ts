@@ -7,6 +7,7 @@ import { faker } from "@faker-js/faker";
 import { ContactUsPage } from "./pages/ContactUsPage";
 import { TestCasesPage } from "./pages/TestCasesPage";
 import { ProductsPage } from "./pages/ProductsPage";
+import { ProductsDetails1Page } from "./pages/ProductsDetails1Page";
 
 test.describe("Automation Exercise", () => {
   test.beforeEach(async ({ page }) => {
@@ -129,9 +130,27 @@ test.describe("Automation Exercise", () => {
   test("Test Case 8: Verify All Products and product detail page", async ({ page }) => {
     const homePage = new HomePage(page);
     const productsPage = new ProductsPage(page);
+    const productsDetails1Page = new ProductsDetails1Page(page)
 
-    await homePage.productsButtonClick()
-    await productsPage.veryfiAllProductsTitle()
+    await homePage.productsButtonClick();
+
+    await productsPage.veryfiAllProductsTitle();
+    await productsPage.veryfiProductsList();
+    await productsPage.firstProductsViewClick();
+
+    await productsDetails1Page.veryfiProducts1Url
+
+    await expect(page.locator('.product-information > h2')).toBeVisible();
+    await expect(page.locator('.product-information > p ').first()).toBeVisible();
+
+    await expect(page.getByText('Rs.')).toBeVisible();
+    await expect(page.getByText('Availability: In Stock')).toBeVisible();
+    await expect(page.getByText('Condition: New')).toBeVisible();
+    await expect(page.getByText('Brand: Polo')).toBeVisible();
+
+
+
+
 
     // In Progres
 
