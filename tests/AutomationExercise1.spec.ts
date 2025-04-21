@@ -53,7 +53,7 @@ test.describe("Automation Exercise", () => {
 
     await loginPage.verifyLoginPageVisible();
     await loginPage.loginWithValidCredentials(
-      "Jeanee6378@yahoo.com",
+      "Jeane635778@yahoo.com",
       "password123"
     );
     await accountPage.verifyUserLoggedIn();
@@ -123,14 +123,16 @@ test.describe("Automation Exercise", () => {
     const homePage = new HomePage(page);
     const testCasesPage = new TestCasesPage(page);
 
-    await homePage.testCasesClick()
+    await homePage.testCasesClick();
     await testCasesPage.veryfiTestCasesTitle();
   });
 
-  test("Test Case 8: Verify All Products and product detail page", async ({ page }) => {
+  test("Test Case 8: Verify All Products and product detail page", async ({
+    page,
+  }) => {
     const homePage = new HomePage(page);
     const productsPage = new ProductsPage(page);
-    const productsDetails1Page = new ProductsDetails1Page(page)
+    const productsDetails1Page = new ProductsDetails1Page(page);
 
     await homePage.productsButtonClick();
 
@@ -138,21 +140,35 @@ test.describe("Automation Exercise", () => {
     await productsPage.veryfiProductsList();
     await productsPage.firstProductsViewClick();
 
-    await productsDetails1Page.veryfiProducts1Url
+    await productsDetails1Page.veryfiProducts1Url();
 
-    await expect(page.locator('.product-information > h2')).toBeVisible();
-    await expect(page.locator('.product-information > p ').first()).toBeVisible();
+    await productsDetails1Page.veryfiProducts1Name();
+    await productsDetails1Page.veryfiProducts1Category();
 
-    await expect(page.getByText('Rs.')).toBeVisible();
-    await expect(page.getByText('Availability: In Stock')).toBeVisible();
-    await expect(page.getByText('Condition: New')).toBeVisible();
-    await expect(page.getByText('Brand: Polo')).toBeVisible();
+    await productsDetails1Page.veryfiProducts1Price();
+    await productsDetails1Page.veryfiProducts1Availability();
+    await productsDetails1Page.veryfiProducts1Condition();
+    await productsDetails1Page.veryfiProducts1Brand();
+  });
+
+  test("Test Case 9: Search Product", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const productsPage = new ProductsPage(page);
+
+    await homePage.productsButtonClick();
+
+    await productsPage.veryfiAllProductsTitle();
+
+    
+    //await page.locator('#search_product').fill("Fancy Green Top");
+    await productsPage.searchProductsName('Fancy Green Top')
 
 
+    await productsPage.searchProductsClick()
+    //await page.locator('#submit_search').click();
+    await expect(page.getByRole("heading", { name: "Searched Products" })).toBeVisible();
 
-
-
-    // In Progres
+    await expect(page.getByText("Fancy Green Top").first()).toBeVisible();
 
   });
 

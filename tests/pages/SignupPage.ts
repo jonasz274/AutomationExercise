@@ -100,7 +100,7 @@ export class SignupPage {
   }
   async createUserToTest() {
     const accountPage = new AccountPage(this.page);
-    await this.fillSignupForm("Anna", "Jeanee6378@yahoo.com");
+    await this.fillSignupForm("Anna", "Jeane635778@yahoo.com");
     await this.submitSignup();
     await this.verifyEnterAccountInformation();
     await this.fillAccountDetails("password123");
