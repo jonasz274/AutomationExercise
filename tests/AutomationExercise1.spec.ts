@@ -24,47 +24,48 @@ test.describe("Automation Exercise", () => {
     const accountPage = new AccountPage(page);
     const loginPage = new LoginPage(page);
 
+    const registerUserName = "Anna"
+    const registerUserEmail = "Jeanne633@yahoo.com"
+    const registerUserPassword ="superPassword"
+
     await homePage.navigateToSignup();
     await loginPage.verifynewUserSignupVisible();
-    await signupPage.fillSignupForm("Anna", "Jeanne633@yahoo.com");
+    await signupPage.fillSignupForm(registerUserName, registerUserEmail);
     await signupPage.submitSignup();
     await signupPage.verifyEnterAccountInformation();
-    await signupPage.fillAccountDetails("superPassword");
+    await signupPage.fillAccountDetails(registerUserPassword);
     await signupPage.submitAccountCreation();
     await accountPage.verifyAccountCreated();
-    await homePage.verifyLoggedUsername("Anna");
+    await homePage.verifyLoggedUsername(registerUserName);
     await homePage.deleteAccount();
     await accountPage.checkDeleteAccount();
   });
 
-  test("Test Case 2: Login User with correct email and password", async ({
-    page,
-  }) => {
+  test("Test Case 2: Login User with correct email and password", async ({page,}) => {
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
     const accountPage = new AccountPage(page);
     const signupPage = new SignupPage(page);
 
+    const userName = "Adam"
+    const Email = "Jeeaane6357778@yahoo.com"
+    const passwd = "password123"
+
     await homePage.navigateToSignup();
     await loginPage.verifyLoginPageVisible();
 
-    await signupPage.createUserToTest();
+    await signupPage.createUserToTest(userName,Email);
     await homePage.logout();
 
     await loginPage.verifyLoginPageVisible();
-    await loginPage.loginWithValidCredentials(
-      "Jeane635778@yahoo.com",
-      "password123"
-    );
+    await loginPage.loginWithValidCredentials(Email,passwd);
     await accountPage.verifyUserLoggedIn();
 
     await homePage.deleteAccount();
     await accountPage.checkDeleteAccount();
   });
 
-  test("Test Case 3: Login User with incorrect email and password", async ({
-    page,
-  }) => {
+  test("Test Case 3: Login User with incorrect email and password", async ({page,}) => {
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
 
@@ -77,12 +78,24 @@ test.describe("Automation Exercise", () => {
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
     const signupPage = new SignupPage(page);
+    const accountPage = new AccountPage(page);
+
+    const userName = "Adam"
+    const Email = "Jeeaane6357778@yahoo.com"
+    const passwd = "password123"
 
     await homePage.navigateToSignup();
     await loginPage.verifyLoginPageVisible();
-    await signupPage.createUserToTest();
+    await signupPage.createUserToTest(userName,Email);
+
     await homePage.logout();
     await loginPage.verifyLoginPageVisible();
+
+    await loginPage.loginWithValidCredentials(Email,passwd);
+    await accountPage.verifyUserLoggedIn();
+
+    await homePage.deleteAccount();
+    await accountPage.checkDeleteAccount();
   });
 
   test("Test Case 5: Register User with existing email", async ({ page }) => {
@@ -114,9 +127,11 @@ test.describe("Automation Exercise", () => {
 
     await contactUs.cubmitClick();
     await contactUs.verifyAlertSuccess();
+
+    //'Success! Your details have'
     await contactUs.homeClick();
 
-    await expect(page).toHaveURL("https://automationexercise.com/");
+    await expect(page).toHaveURL(homePage.urlHome);
   });
 
   test("Test Case 7: Verify Test Cases Page", async ({ page }) => {
@@ -155,21 +170,24 @@ test.describe("Automation Exercise", () => {
     const homePage = new HomePage(page);
     const productsPage = new ProductsPage(page);
 
+    const productName = "Fancy Green Top"
+
     await homePage.productsButtonClick();
-
     await productsPage.veryfiAllProductsTitle();
-
-    
-    //await page.locator('#search_product').fill("Fancy Green Top");
-    await productsPage.searchProductsName('Fancy Green Top')
-
-
+    await productsPage.searchProductsName(productName)
     await productsPage.searchProductsClick()
-    //await page.locator('#submit_search').click();
-    await expect(page.getByRole("heading", { name: "Searched Products" })).toBeVisible();
 
-    await expect(page.getByText("Fancy Green Top").first()).toBeVisible();
+    await productsPage.veryfiSearchProductsVisable(productName)
+  });
 
+  test("Test Case 10: Verify Subscription in home page", async ({ page }) => {
+    const homePage = new HomePage(page);
+
+    const Email = "Jeeaane635778@yahoo.com"
+
+    await homePage.subscribeEmai(Email)
+    await homePage.subscribeButtonClick()
+    await homePage.verifySubscribeAlert('You have been successfully subscribed!')
   });
 
 });

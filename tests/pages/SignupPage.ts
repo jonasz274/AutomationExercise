@@ -98,9 +98,9 @@ export class SignupPage {
   async submitAccountCreation() {
     await this.createAccountButton.click();
   }
-  async createUserToTest() {
+  async createUserToTest(userName:string,Email:string) {
     const accountPage = new AccountPage(this.page);
-    await this.fillSignupForm("Anna", "Jeane635778@yahoo.com");
+    await this.fillSignupForm(userName, Email);
     await this.submitSignup();
     await this.verifyEnterAccountInformation();
     await this.fillAccountDetails("password123");

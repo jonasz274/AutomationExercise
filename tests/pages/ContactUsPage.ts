@@ -22,13 +22,14 @@ export class ContactUsPage {
     this.message = page.getByPlaceholder("Your Message Here");
     this.submit = page.getByRole("button", { name: "Submit" });
     this.homeBtn = page.locator('.btn.btn-success')
-    this.alertSuccess = page.locator('#contact-page')
+    this.alertSuccess = page.locator('#contact-page').locator('.alert-success')
   }
 
   async verifyGetInTouch() {
     await expect(this.getInTouch).toBeVisible();
   }
   async verifyAlertSuccess() {
+    //await this.alertSuccess.waitFor()
     await expect(this.alertSuccess.getByText('Success! Your details have')).toBeVisible();
   }
   async fillName() {

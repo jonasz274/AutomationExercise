@@ -7,6 +7,8 @@ export class ProductsPage {
   readonly firstProductsView: Locator;
   readonly searchProducts: Locator;
   readonly searchProductsBtn: Locator;
+  readonly searchProductsVisable: Locator;
+  
 
   constructor(page: Page) {
     this.page = page;
@@ -15,6 +17,7 @@ export class ProductsPage {
     this.firstProductsView = page.locator('.choose').first()
     this.searchProducts = page.locator('#search_product')
     this.searchProductsBtn = page.locator('#submit_search')
+    this.searchProductsVisable = page.locator(".productinfo").locator("p")
 
   }
 
@@ -33,4 +36,10 @@ export class ProductsPage {
   async searchProductsClick() {
     await this.searchProductsBtn.click();
   }
+    async veryfiSearchProductsVisable(productName:string) {
+    await expect(this.searchProductsVisable).toHaveText(productName)
+  }
+
+
+
 }

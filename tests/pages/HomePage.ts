@@ -13,6 +13,10 @@ export class HomePage {
   readonly cookieButton: Locator;
   readonly urlHome: string;
 
+  readonly subscribeEmailInput: Locator;
+  readonly subscribeEmailButton: Locator;
+  readonly subscribeAlert: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.signupLink = page.getByRole("link", { name: "Signup / Login" });
@@ -23,9 +27,13 @@ export class HomePage {
     this.testCases = page.locator('li').filter({ hasText: 'Test Cases' });
     this.productsButton = page.getByRole('link', { name: 'Products' })
 
-
     this.cookieButton = page.locator(".fc-button.fc-cta-consent.fc-primary-button");
     this.urlHome = "https://automationexercise.com";
+
+    this.subscribeEmailInput = page.locator("#susbscribe_email")
+    this.subscribeEmailButton = page.locator("#subscribe")
+    this.subscribeAlert = page.locator(".alert-success")
+
   }
 
   async goTo() {
@@ -55,4 +63,15 @@ export class HomePage {
   async productsButtonClick() {
     await this.productsButton.click();
   }
+    async subscribeEmai(Email:string) {
+    await this.subscribeEmailInput.fill(Email);
+  }
+    async subscribeButtonClick(){
+      await this.subscribeEmailButton.click()
+  }
+    async verifySubscribeAlert(subscribeAlertText: string) {
+    await this.subscribeAlert.waitFor()
+    await expect(this.subscribeAlert).toHaveText(subscribeAlertText);
+  }
+
 }
