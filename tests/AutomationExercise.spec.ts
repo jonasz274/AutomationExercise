@@ -1,13 +1,13 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
-import { HomePage } from "./pages/HomePage";
-import { SignupPage } from "./pages/SignupPage";
-import { LoginPage } from "./pages/LoginPage";
-import { AccountPage } from "./pages/AccountPage";
+import { HomePage } from "../pages/HomePage";
+import { SignupPage } from "../pages/SignupPage";
+import { LoginPage } from "../pages/LoginPage";
+import { AccountPage } from "../pages/AccountPage";
 import { faker } from "@faker-js/faker";
-import { ContactUsPage } from "./pages/ContactUsPage";
-import { TestCasesPage } from "./pages/TestCasesPage";
-import { ProductsPage } from "./pages/ProductsPage";
-import { ProductsDetails1Page } from "./pages/ProductsDetails1Page";
+import { ContactUsPage } from "../pages/ContactUsPage";
+import { TestCasesPage } from "../pages/TestCasesPage";
+import { ProductsPage } from "../pages/ProductsPage";
+import { ProductsDetails1Page } from "../pages/ProductsDetails1Page";
 
 test.describe("Automation Exercise", () => {
   test.beforeEach(async ({ page }) => {
